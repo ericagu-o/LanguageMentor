@@ -1,5 +1,6 @@
 # 导入所需的模块和类
-from langchain_ollama.chat_models import ChatOllama  # 导入 ChatOllama 模型
+# from langchain_ollama.chat_models import ChatOllama  # 导入 ChatOllama 模型
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder  # 导入提示模板相关类
 from langchain_core.messages import HumanMessage  # 导入人类消息类
 from utils.logger import LOG  # 导入日志工具
@@ -36,7 +37,7 @@ class ConversationAgent:
         self.name = "Conversation Agent"  # 代理名称
         
         # 读取系统提示语，从文件中加载
-        with open("prompts/conversation_prompt.txt", "r", encoding="utf-8") as file:
+        with open("prompts/conversation_prompt_hw.txt", "r", encoding="utf-8") as file:
             self.system_prompt = file.read().strip()
 
         # 创建聊天提示模板，包括系统提示和消息占位符
@@ -46,8 +47,15 @@ class ConversationAgent:
         ])
 
         # 初始化 ChatOllama 模型，配置模型参数
-        self.chatbot = self.prompt | ChatOllama(
-            model="llama3.1:8b-instruct-q8_0",  # 使用的模型名称
+        # self.chatbot = self.prompt | ChatOllama(
+        #     model="llama3.1:8b-instruct-q8_0",  # 使用的模型名称
+        #     max_tokens=8192,  # 最大生成的token数
+        #     temperature=0.8,  # 生成文本的随机性
+        # )
+
+        # 初始化 ChatOpenAI 模型，配置模型参数
+        self.chatbot = self.prompt | ChatOpenAI(
+            model="gpt-4o-mini",  # 使用的模型名称
             max_tokens=8192,  # 最大生成的token数
             temperature=0.8,  # 生成文本的随机性
         )
