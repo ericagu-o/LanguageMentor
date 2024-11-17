@@ -10,9 +10,9 @@ from langchain_core.runnables.history import RunnableWithMessageHistory  # 导�
 from .session_history import get_session_history  # 导入会话历史相关方法
 from utils.logger import LOG
 
-class ScenarioAgent:
-    def __init__(self, scenario_name):
-        self.name = scenario_name
+class SaleryNegotiationAgent:
+    def __init__(self, salery_negotiation_name):
+        self.name = salery_negotiation_name
         self.prompt_file = f"prompts/{self.name}_prompt.txt"
         self.intro_file = f"content/intro/{self.name}.json"
         self.prompt = self.load_prompt()
